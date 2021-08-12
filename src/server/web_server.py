@@ -13,7 +13,7 @@ class ServerHandler(BaseHTTPRequestHandler):
         self.send_response(200)
         # Inform the target that content type header is "text/html"
         self.send_header("Content-type", "text/html")
-        self.end_headers()
+        self.end_headers() 
         # send the command which we got from the user input
         self.wfile.write(command.encode())
 
@@ -53,7 +53,7 @@ class ServerHandler(BaseHTTPRequestHandler):
 class WebServer():
     def __init__(self, port=5000, verbose=True):
         """ Constructs a restartable WebServer on 'PORT'. """
-        self.IP = '192.168.0.123'
+        self.IP = '<SERVER-IP-ADDRESS>'
         self.PORT = port
         self._verbose = verbose
         self._handler = ServerHandler
