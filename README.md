@@ -20,6 +20,7 @@ make the victim execute them, and POST the result back to us. <br/>
 *   <b>Search</b> - Search for files using `search` command.
 *   <b>Port Scanner</b> - check target for open ports using `scan` command.
 *   <b>Keylogger</b> - check target keylogs by downloading 'keylogs.txt' from target file system.
+*   <b>Encrypted Communication</b> - all commuinication between target and server is encrypted using XOR key.
 
 ## Usage
 
